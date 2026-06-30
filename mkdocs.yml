@@ -49,11 +49,20 @@ nav:
       - index.md
       - quickstart.md
   - Examples:
+      - examples/punctuation_spiral.md
+      - examples/text_walk.md
       - examples/spine_demo.md
   - Troubleshooting: troubleshooting.md
   - API Reference:
-      - api/segment.md
-      - api/layout.md
-      - api/channels.md
-      - api/render.md
-      - api/datasets.md
+      - Presets:
+          - api/punctuation_spiral.md
+          - api/text_walk.md
+      - Spine:
+          - api/segment.md
+          - api/layout.md
+          - api/walk.md
+          - api/spiral.md
+          - api/widths.md
+          - api/channels.md
+          - api/render.md
+          - api/datasets.md
