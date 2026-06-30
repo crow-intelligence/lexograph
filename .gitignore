@@ -1,0 +1,34 @@
+# Source literature — ground truth for the methods, never version controlled
+papers/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Built documentation (mkdocs output)
+site/
+
+# Test artifacts
+.coverage
+.hypothesis/
+
+# Mutation testing (mutmut) working copy and cache
+mutants/
+.mutmut-cache
+
+# Rendered figures from examples / smoke runs
+*.png
+!docs/**/*.png
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Local harness / session state
+.claude/

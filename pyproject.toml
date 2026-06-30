@@ -1,0 +1,101 @@
+[project]
+name = "lexograph"
+version = "0.1.0"
+description = "Spatialize linear text into pictures you can read: walks, spirals, dotplots, and concordances"
+readme = "README.md"
+authors = [
+    { name = "Zoltan Varju", email = "zoltan.varju@crowintelligence.org" },
+    { name = "Orsolya Putz", email = "orsolya.putz@crowintelligence.org" },
+]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = [
+    "nlp",
+    "text-visualization",
+    "information-design",
+    "concordance",
+    "recurrence-plot",
+    "dotplot",
+    "text-analysis",
+    "computational-humanities",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "nltk>=3.8",
+]
+
+[project.urls]
+Homepage = "https://crowintelligence.org/"
+Repository = "https://github.com/crow-intelligence/lexograph"
+Documentation = "https://lexograph.readthedocs.io"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-cov",
+    "hypothesis>=6.100",
+    "ruff>=0.4",
+    "ty",
+    "mutmut>=3",
+]
+docs = [
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.22,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "ANN", "D"]
+ignore = ["D105", "D107"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D100", "D102", "D103", "D104", "ANN"]
+"examples/**" = ["D100", "ANN"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --tb=short"
+testpaths = ["src", "tests"]
+
+# Mutation testing (dev-only, not run in CI). Scoped to the layout geometry — the
+# math-heavy core — and its fast, plotting-free test files. Run with
+# `uv run mutmut run`.
+[tool.mutmut]
+source_paths = ["src/lexograph"]
+only_mutate = [
+    "src/lexograph/layout/walk.py",
+    "src/lexograph/layout/walk3d.py",
+    "src/lexograph/layout/spiral.py",
+    "src/lexograph/layout/recurrence.py",
+    "src/lexograph/layout/dispersion.py",
+]
+pytest_add_cli_args_test_selection = [
+    "tests/test_walk.py",
+    "tests/test_spiral.py",
+    "tests/test_recurrence.py",
+    "tests/test_dispersion.py",
+]
+pytest_add_cli_args = ["-p", "no:cacheprovider"]
+
+[tool.ty]

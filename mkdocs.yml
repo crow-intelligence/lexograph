@@ -1,0 +1,53 @@
+site_name: lexograph
+site_description: Spatialize linear text into pictures you can read
+site_url: https://lexograph.readthedocs.io
+repo_url: https://github.com/crow-intelligence/lexograph
+repo_name: crow-intelligence/lexograph
+
+# Fail the build on any warning (broken links, missing autodoc targets, dead
+# snippet paths). Keeps the published docs honest.
+strict: true
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://crowintelligence.org/
+      name: Crow Intelligence
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  # Pull the verified example scripts into the docs so they never drift.
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+
+nav:
+  - Getting Started:
+      - index.md
+      - quickstart.md
+  - Troubleshooting: troubleshooting.md
+  - API Reference:
+      - api/datasets.md
