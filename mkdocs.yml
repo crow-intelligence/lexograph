@@ -48,6 +48,12 @@ nav:
   - Getting Started:
       - index.md
       - quickstart.md
+  - Examples:
+      - examples/spine_demo.md
   - Troubleshooting: troubleshooting.md
   - API Reference:
+      - api/segment.md
+      - api/layout.md
+      - api/channels.md
+      - api/render.md
       - api/datasets.md
