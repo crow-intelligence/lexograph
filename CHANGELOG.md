@@ -8,6 +8,17 @@ semantic versioning.
 
 ### Added
 
+- Phase 5 analysis: the optional `lexograph[graph]` layer plus core scalars.
+  - `lexograph.scalars` (core) — `lengths`, `positions`, `frequencies`: the
+    dependency-free channel sources.
+  - `lexograph.analyze` (`[graph]` extra) — `analyze_text` runs the pipeline
+    (sentence embeddings → cosine kNN graph → optional disparity-filter backbone
+    → PageRank for size, Louvain/KMeans communities for colour) and returns an
+    `Analysis` of plain arrays, including a cosine `distances` matrix for a
+    semantic recurrence dotplot. The core never imports this; the adapters
+    depend inward.
+  - The disparity-filter backbone is ported from the sibling `kenon` package
+    (Serrano et al. 2009).
 - Phase 4 grids: the two grid presets, each on a different grid.
   - `recurrence_plot` — the sentence × sentence self-similarity dotplot (a text
     against itself), via matplotlib `imshow`. Dependency-free token/character
