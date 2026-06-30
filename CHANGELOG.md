@@ -8,6 +8,14 @@ semantic versioning.
 
 ### Added
 
+- Phase 6 quality + docs.
+  - `tests/test_geometry.py` — cross-cutting Hypothesis properties: every step turns the
+    heading by exactly the turn angle, right-angle walk segments are perpendicular, the
+    3-D corkscrew's xy projection equals the 2-D walk, and the spiral radius strictly
+    increases.
+  - `PRE-MORTEM.md` (failure modes and guards), `MUTATION-TESTING.md` (mutmut scope),
+    `CHANGES_SUMMARY.md` (open decisions).
+  - The spine tutorial; README quickstart showing all presets and a roadmap.
 - Phase 5 analysis: the optional `lexograph[graph]` layer plus core scalars.
   - `lexograph.scalars` (core) — `lengths`, `positions`, `frequencies`: the
     dependency-free channel sources.

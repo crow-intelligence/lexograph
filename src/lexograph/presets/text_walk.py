@@ -195,5 +195,6 @@ def text_walk(
         )
 
     frame_axes(ax, coords)
-    fig.tight_layout()
+    # No tight_layout: the axes are off, so there are no decorations to fit, and
+    # calling it only emits a spurious "tight layout not applied" warning.
     return fig

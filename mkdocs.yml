@@ -48,6 +48,8 @@ nav:
   - Getting Started:
       - index.md
       - quickstart.md
+  - Tutorials:
+      - tutorials/the_spine.md
   - Examples:
       - examples/punctuation_spiral.md
       - examples/text_walk.md
