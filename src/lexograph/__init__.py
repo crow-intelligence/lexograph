@@ -21,16 +21,18 @@ from lexograph.layout import (
     linear_layout,
     rendered_widths,
     spiral_layout,
+    walk3d_layout,
     walk_layout,
 )
 from lexograph.presets import punctuation_spiral, text_walk
-from lexograph.render import frame_axes, render_path, render_points
+from lexograph.render import frame_axes, render_path, render_path_3d, render_points
 from lexograph.segment import segment
 
 __all__ = [
     "segment",
     "linear_layout",
     "walk_layout",
+    "walk3d_layout",
     "spiral_layout",
     "rendered_widths",
     "normalize_size",
@@ -39,6 +41,7 @@ __all__ = [
     "Channels",
     "render_points",
     "render_path",
+    "render_path_3d",
     "frame_axes",
     "punctuation_spiral",
     "text_walk",

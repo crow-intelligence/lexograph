@@ -8,6 +8,12 @@ semantic versioning.
 
 ### Added
 
+- Phase 3 corkscrew: the 3-D walk.
+  - `layout.walk3d_layout` — the 2-D walk lifted by a constant step in z.
+  - `render.render_path_3d` — a matplotlib 3-D path renderer with per-segment
+    colours and line widths.
+  - `text_walk(..., helix=True, z_step=...)` winds the walk into a corkscrew;
+    `examples/text_walk_3d_demo.py` and docs.
 - Phase 2 walk + spiral: the first two presets and their layouts.
   - `layout.walk_layout` / `heading_angles` — the 2-D turtle walk (step forward,
     turn 90°), ported from the Wittgenstein piece's `compute_path`.

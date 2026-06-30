@@ -51,6 +51,15 @@ class TestTextWalk:
         fig = text_walk(demo_text, colour=labels, colour_kind="categorical")
         assert isinstance(fig, Figure)
 
+    def test_helix_returns_3d_figure(self, demo_text: str) -> None:
+        fig = text_walk(demo_text, helix=True)
+        assert isinstance(fig, Figure)
+        assert fig.axes[0].name == "3d"
+
+    def test_helix_with_glyphs_raises(self, demo_text: str) -> None:
+        with pytest.raises(ValueError, match="helix"):
+            text_walk(demo_text, helix=True, mode="glyphs")
+
     def test_too_few_sentences_raises(self) -> None:
         with pytest.raises(ValueError, match="at least two sentences"):
             text_walk("Only one sentence here.")
