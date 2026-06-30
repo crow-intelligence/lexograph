@@ -52,12 +52,16 @@ nav:
       - examples/punctuation_spiral.md
       - examples/text_walk.md
       - examples/text_walk_3d.md
+      - examples/recurrence.md
+      - examples/concordance.md
       - examples/spine_demo.md
   - Troubleshooting: troubleshooting.md
   - API Reference:
       - Presets:
           - api/punctuation_spiral.md
           - api/text_walk.md
+          - api/recurrence.md
+          - api/concordance.md
       - Spine:
           - api/segment.md
           - api/layout.md
