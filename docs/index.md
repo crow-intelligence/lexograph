@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="lexograph" width="480">
+</p>
+
 # lexograph
 
 Spatialize linear text into pictures you can read — in pure Python, rendered with

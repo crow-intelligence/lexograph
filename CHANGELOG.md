@@ -8,6 +8,8 @@ semantic versioning.
 
 ### Added
 
+- Project logo (`docs/assets/logo.png`, source `imgs/logo.svg`) in the README, the docs
+  header/favicon/home hero, and — via an absolute raw URL — the PyPI page.
 - Phase 6 quality + docs.
   - `tests/test_geometry.py` — cross-cutting Hypothesis properties: every step turns the
     heading by exactly the turn angle, right-angle walk segments are perpendicular, the
