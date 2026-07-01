@@ -11,7 +11,9 @@ Part of the optional ``lexograph[graph]`` extra.
 
 from __future__ import annotations
 
+import importlib
 from collections.abc import Sequence
+from typing import Any
 
 import numpy as np
 
@@ -52,7 +54,9 @@ def embed_sentences(
             sentences = segment(load_demo_text())
             embeddings = embed_sentences(sentences)
     """
-    import sentence_transformers as st  # ty: ignore[unresolved-import]
+    # Imported by name so the heavy optional dependency is neither required to
+    # import this module nor statically type-checked when it is absent.
+    st: Any = importlib.import_module("sentence_transformers")
 
     model = st.SentenceTransformer(model_name)
     vectors = model.encode(

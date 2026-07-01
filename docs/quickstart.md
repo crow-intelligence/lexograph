@@ -48,7 +48,23 @@ save cleanly from a script. The `text_walk` colour and size channels accept any
 per-sentence array — `length`, `frequency`, a community id, or your own column — which
 is the [data contract](index.md#the-data-contract) that keeps lexograph general.
 
+## More presets
+
+The same `text` drives every preset:
+
+```python
+from lexograph import recurrence_plot, concordance
+
+recurrence_plot(text)                                  # the text against itself
+concordance(text, ["Bennet", "Bingley", "wife"])       # term dispersion
+text_walk(text, helix=True, z_step=4.0)                # the 3-D corkscrew
+```
+
+For semantics (PageRank size, community colour, embedding-distance dotplots), install the
+`[graph]` extra and use `lexograph.analyze.analyze_text`.
+
 ## Next steps
 
-The remaining presets (3-D walk, recurrence dotplot, concordance) land over the
-following build phases, each on the same spine.
+- [The spine](tutorials/the_spine.md) — the four steps every preset shares, and the data
+  contract that keeps lexograph general.
+- The [examples](examples/punctuation_spiral.md) render each preset from the bundled text.

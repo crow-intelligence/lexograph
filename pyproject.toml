@@ -101,9 +101,11 @@ only_mutate = [
 ]
 pytest_add_cli_args_test_selection = [
     "tests/test_walk.py",
+    "tests/test_walk3d.py",
     "tests/test_spiral.py",
     "tests/test_recurrence.py",
     "tests/test_dispersion.py",
+    "tests/test_geometry.py",
 ]
 pytest_add_cli_args = ["-p", "no:cacheprovider"]
 

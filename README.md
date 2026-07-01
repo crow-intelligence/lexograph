@@ -36,13 +36,22 @@ The core depends only on `numpy`, `matplotlib`, and `nltk`.
 ## Quickstart
 
 ```python
-from lexograph import load_demo_text
+from lexograph import (
+    load_demo_text, punctuation_spiral, text_walk, recurrence_plot, concordance,
+)
 
 text = load_demo_text()  # Chapter 1 of Pride and Prejudice (public domain)
+
+punctuation_spiral(text)                              # marks on an Archimedean spiral
+text_walk(text)                                      # the 2-D space-filling walk
+text_walk(text, helix=True, z_step=4.0)              # the 3-D corkscrew
+recurrence_plot(text)                                # the text against itself
+concordance(text, ["Bennet", "Bingley", "wife"])    # term dispersion
 ```
 
-The presets that consume this text land over the next build phases; see the
-[documentation](https://lexograph.readthedocs.io) for the current surface.
+Every call returns a matplotlib `Figure`. For PageRank-sized, community-coloured, or
+semantically-recurrent figures, install the `[graph]` extra and feed
+`lexograph.analyze.analyze_text`'s arrays into any preset.
 
 ## The data contract
 
@@ -58,6 +67,19 @@ that satisfy this contract.
 Full documentation — quickstart, a tutorial per preset, troubleshooting, and the API
 reference — is at [lexograph.readthedocs.io](https://lexograph.readthedocs.io). The
 sources live in `docs/`.
+
+## Roadmap
+
+Open modelling and packaging decisions are analysed in
+[`CHANGES_SUMMARY.md`](CHANGES_SUMMARY.md), and the failure modes in
+[`PRE-MORTEM.md`](PRE-MORTEM.md). The main not-yet-built pieces:
+
+- [ ] Vendor the four OFL/Apache handwriting fonts so the handwriting walk works out of
+      the box (the width-step already runs on any TTF).
+- [ ] `integrations/` — thin `[kenon]` and `[chronowords]` adapters over the data contract.
+- [ ] Optional interactive HTML/WebGL export (`render/html.py`), ported from the source
+      viewers and gated behind a stretch extra.
+- [ ] A space-filling / non-self-overlapping turn rule for very uniform texts.
 
 ## Made by
 
