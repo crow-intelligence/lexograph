@@ -29,8 +29,10 @@ from lexograph.encode.channels import (
     normalize_size,
 )
 from lexograph.layout.walk import heading_angles, walk_layout
+from lexograph.layout.walk3d import walk3d_layout
 from lexograph.layout.widths import rendered_widths
 from lexograph.render.mpl import frame_axes
+from lexograph.render.mpl3d import render_path_3d
 from lexograph.segment.units import sentences as split_sentences
 
 if TYPE_CHECKING:
@@ -75,12 +77,14 @@ def text_walk(
     colour_kind: ColourKind = "auto",
     size: Sequence[float] | None = None,
     mode: WalkMode = "path",
+    helix: bool = False,
+    z_step: float = 1.0,
     font: FontProperties | str | Path | None = None,
     font_size: float = 12.0,
     width_step: bool = True,
     turn: float = -90.0,
     background: str = "white",
-    figsize: tuple[float, float] = (10.0, 10.0),
+    figsize: tuple[float, float] | None = None,
 ) -> Figure:
     """Draw a text as a space-filling turtle walk over its sentences.
 
@@ -93,21 +97,29 @@ def text_walk(
         size: One scalar per sentence for the size channel. ``None`` sizes by
             sentence length.
         mode: ``"path"`` draws a multi-coloured ribbon; ``"glyphs"`` sets each
-            sentence's text along its segment.
+            sentence's text along its segment. Only ``"path"`` is supported when
+            ``helix`` is set.
+        helix: If ``True``, lift the walk into a 3-D corkscrew (each sentence also
+            climbs ``z_step``) and render it in matplotlib 3-D.
+        z_step: The vertical lift per sentence for the corkscrew (used when
+            ``helix`` is set).
         font: Font to measure widths and (in glyph mode) draw with.
         font_size: Base font size in points for width measurement and glyphs.
         width_step: If ``True``, step by each sentence's rendered width; if
             ``False``, step by its character count.
         turn: Degrees to turn between sentences (``-90`` is the rectangular walk).
         background: Figure and axes background colour.
-        figsize: Figure size in inches.
+        figsize: Figure size in inches. Defaults to ``(10, 10)`` flat, or
+            ``(8, 10)`` for the helix.
 
     Returns:
-        A :class:`matplotlib.figure.Figure` with one axes. Never calls ``show()``.
+        A :class:`matplotlib.figure.Figure` with one axes (2-D, or 3-D for the
+        helix). Never calls ``show()``.
 
     Raises:
-        ValueError: If the text has fewer than two sentences, or a channel length
-            does not match the sentence count.
+        ValueError: If the text has fewer than two sentences, a channel length
+            does not match the sentence count, or ``helix`` is combined with
+            glyph mode.
 
     Contract:
         - Returns a Figure with exactly one axes.
@@ -118,7 +130,13 @@ def text_walk(
         >>> fig = text_walk(load_demo_text())
         >>> type(fig).__name__
         'Figure'
+        >>> helix = text_walk(load_demo_text(), helix=True)
+        >>> type(helix).__name__
+        'Figure'
     """
+    if helix and mode == "glyphs":
+        msg = "glyph mode is not supported for the 3-D helix walk"
+        raise ValueError(msg)
     units = split_sentences(text)
     n = len(units)
     if n < 2:
@@ -129,7 +147,6 @@ def text_walk(
         steps = rendered_widths(units, prop=font, size=font_size)
     else:
         steps = np.array([len(u) for u in units], dtype=float)
-    coords = walk_layout(steps, turn=turn)
 
     colours = _resolve_colours(colour, n, colour_kind)
     raw_size = [float(s) for s in size] if size is not None else [len(u) for u in units]
@@ -138,7 +155,18 @@ def text_walk(
         raise ValueError(msg)
     weight = normalize_size(raw_size, lo=0.0, hi=1.0)
 
-    fig = Figure(figsize=figsize, facecolor=background)
+    if helix:
+        coords3d = walk3d_layout(steps, turn=turn, z_step=z_step)
+        return render_path_3d(
+            coords3d,
+            colors=colours,
+            linewidths=[0.6 + 6.0 * float(w) for w in weight],
+            background=background,
+            figsize=figsize or (8.0, 10.0),
+        )
+
+    coords = walk_layout(steps, turn=turn)
+    fig = Figure(figsize=figsize or (10.0, 10.0), facecolor=background)
     ax = fig.subplots()
     ax.set_facecolor(background)
 
