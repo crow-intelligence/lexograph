@@ -54,6 +54,7 @@ nav:
       - examples/text_walk_3d.md
       - examples/recurrence.md
       - examples/concordance.md
+      - examples/graph_analysis.md
       - examples/spine_demo.md
   - Troubleshooting: troubleshooting.md
   - API Reference:
@@ -70,5 +71,8 @@ nav:
           - api/spiral.md
           - api/widths.md
           - api/channels.md
+          - api/scalars.md
           - api/render.md
           - api/datasets.md
+      - Analysis ([graph] extra):
+          - api/analyze.md

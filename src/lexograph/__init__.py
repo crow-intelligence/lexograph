@@ -33,10 +33,14 @@ from lexograph.presets import (
     text_walk,
 )
 from lexograph.render import frame_axes, render_path, render_path_3d, render_points
+from lexograph.scalars import frequencies, lengths, positions
 from lexograph.segment import segment
 
 __all__ = [
     "segment",
+    "lengths",
+    "positions",
+    "frequencies",
     "linear_layout",
     "walk_layout",
     "walk3d_layout",

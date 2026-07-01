@@ -42,6 +42,15 @@ Repository = "https://github.com/crow-intelligence/lexograph"
 Documentation = "https://lexograph.readthedocs.io"
 
 [project.optional-dependencies]
+# Heavy analysis layer (lexograph.analyze): sentence embeddings, kNN graph,
+# disparity-filter backbone, PageRank, and community detection. The core never
+# imports these.
+graph = [
+    "sentence-transformers>=2.2",
+    "scikit-learn>=1.3",
+    "networkx>=3.0",
+    "scipy>=1.10",
+]
 dev = [
     "pytest>=8",
     "pytest-cov",
