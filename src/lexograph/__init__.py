@@ -18,13 +18,20 @@ from lexograph.encode import (
     normalize_size,
 )
 from lexograph.layout import (
+    kwic,
     linear_layout,
     rendered_widths,
     spiral_layout,
+    term_offsets,
     walk3d_layout,
     walk_layout,
 )
-from lexograph.presets import punctuation_spiral, text_walk
+from lexograph.presets import (
+    concordance,
+    punctuation_spiral,
+    recurrence_plot,
+    text_walk,
+)
 from lexograph.render import frame_axes, render_path, render_path_3d, render_points
 from lexograph.segment import segment
 
@@ -35,6 +42,8 @@ __all__ = [
     "walk3d_layout",
     "spiral_layout",
     "rendered_widths",
+    "term_offsets",
+    "kwic",
     "normalize_size",
     "categorical_colors",
     "continuous_colors",
@@ -45,6 +54,8 @@ __all__ = [
     "frame_axes",
     "punctuation_spiral",
     "text_walk",
+    "recurrence_plot",
+    "concordance",
     "load_demo_text",
     "__version__",
 ]

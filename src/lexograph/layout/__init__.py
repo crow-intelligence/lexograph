@@ -1,6 +1,8 @@
 """Layout: place ordered units in 2-D or 3-D space (walks, spirals, grids)."""
 
+from lexograph.layout.dispersion import KWIC, kwic, term_offsets
 from lexograph.layout.linear import linear_layout
+from lexograph.layout.recurrence import recurrence_distances, recurrence_matrix
 from lexograph.layout.spiral import spiral_layout, tangent_angles
 from lexograph.layout.walk import heading_angles, walk_layout
 from lexograph.layout.walk3d import walk3d_layout
@@ -14,4 +16,9 @@ __all__ = [
     "spiral_layout",
     "tangent_angles",
     "rendered_widths",
+    "recurrence_distances",
+    "recurrence_matrix",
+    "term_offsets",
+    "kwic",
+    "KWIC",
 ]

@@ -8,6 +8,13 @@ semantic versioning.
 
 ### Added
 
+- Phase 4 grids: the two grid presets, each on a different grid.
+  - `recurrence_plot` — the sentence × sentence self-similarity dotplot (a text
+    against itself), via matplotlib `imshow`. Dependency-free token/character
+    Jaccard distance by default (`layout.recurrence_distances` /
+    `recurrence_matrix`), or a precomputed embedding distance matrix.
+  - `concordance` — a term × text lexical-dispersion plot, with
+    `layout.term_offsets` and keyword-in-context (`layout.kwic` / `KWIC`).
 - Phase 3 corkscrew: the 3-D walk.
   - `layout.walk3d_layout` — the 2-D walk lifted by a constant step in z.
   - `render.render_path_3d` — a matplotlib 3-D path renderer with per-segment

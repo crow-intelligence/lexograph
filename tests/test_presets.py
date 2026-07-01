@@ -1,7 +1,14 @@
+import numpy as np
 import pytest
 from matplotlib.figure import Figure
 
-from lexograph import punctuation_spiral, segment, text_walk
+from lexograph import (
+    concordance,
+    punctuation_spiral,
+    recurrence_plot,
+    segment,
+    text_walk,
+)
 from lexograph.presets.punctuation_spiral import is_accent
 
 
@@ -67,3 +74,56 @@ class TestTextWalk:
     def test_wrong_colour_length_raises(self, demo_text: str) -> None:
         with pytest.raises(ValueError, match="one entry per sentence"):
             text_walk(demo_text, colour=[0, 1, 2])
+
+
+class TestRecurrencePlot:
+    """The recurrence dotplot plots the text against itself."""
+
+    def test_returns_figure_with_image(self, demo_text: str) -> None:
+        fig = recurrence_plot(demo_text)
+        assert isinstance(fig, Figure)
+        assert len(fig.axes[0].images) == 1
+
+    def test_distance_mode(self, demo_text: str) -> None:
+        fig = recurrence_plot(demo_text, mode="distance")
+        assert isinstance(fig, Figure)
+
+    def test_character_shingle(self, demo_text: str) -> None:
+        fig = recurrence_plot(demo_text, shingle=4)
+        assert isinstance(fig, Figure)
+
+    def test_external_distances(self, demo_text: str) -> None:
+        n = len(segment(demo_text))
+        rng = np.zeros((n, n))
+        fig = recurrence_plot(demo_text, distances=rng)
+        assert isinstance(fig, Figure)
+
+    def test_grid_is_square(self, demo_text: str) -> None:
+        n = len(segment(demo_text))
+        fig = recurrence_plot(demo_text)
+        assert fig.axes[0].images[0].get_array().shape == (n, n)
+
+    def test_bad_distances_shape_raises(self, demo_text: str) -> None:
+        with pytest.raises(ValueError, match="must have shape"):
+            recurrence_plot(demo_text, distances=np.zeros((3, 3)))
+
+    def test_too_few_sentences_raises(self) -> None:
+        with pytest.raises(ValueError, match="at least two sentences"):
+            recurrence_plot("One sentence only.")
+
+
+class TestConcordance:
+    """The concordance plots each term's dispersion as a row of ticks."""
+
+    def test_returns_figure(self, demo_text: str) -> None:
+        fig = concordance(demo_text, ["Bennet", "Bingley", "wife"])
+        assert isinstance(fig, Figure)
+        assert len(fig.axes[0].get_yticks()) == 3
+
+    def test_normalize(self, demo_text: str) -> None:
+        fig = concordance(demo_text, ["Bennet"], normalize=True)
+        assert fig.axes[0].get_xlim() == (0.0, 1.0)
+
+    def test_empty_terms_raises(self, demo_text: str) -> None:
+        with pytest.raises(ValueError, match="at least one term"):
+            concordance(demo_text, [])
