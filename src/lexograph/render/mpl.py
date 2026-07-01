@@ -21,7 +21,7 @@ if TYPE_CHECKING:
     from lexograph._types import Coords
     from lexograph.encode.channels import RGBA, Channels
 
-__all__ = ["render_points", "render_path"]
+__all__ = ["render_points", "render_path", "frame_axes"]
 
 _DEFAULT_POINT_COLOR = "#1f77b4"
 _DEFAULT_LINE_COLOR = "#333333"
@@ -36,8 +36,26 @@ def _coords_2d(coords: Coords) -> np.ndarray:
     return array
 
 
-def _frame(ax: Axes, array: np.ndarray, *, margin: float = 0.05) -> None:
-    """Equalise the aspect ratio, hide the axes, and fit the data with a margin."""
+def frame_axes(ax: Axes, coords: Coords, *, margin: float = 0.05) -> None:
+    """Equalise the aspect ratio, hide the axes, and fit ``coords`` with a margin.
+
+    A small helper shared by the renderers and presets: it makes an axes show a
+    spatial figure (equal aspect, no ticks or spines) framed to the data.
+
+    Args:
+        ax: The axes to configure.
+        coords: An ``(N, 2)`` array the limits are fitted to.
+        margin: Fractional padding added around the data extent.
+
+    Examples:
+        >>> import numpy as np
+        >>> from matplotlib.figure import Figure
+        >>> ax = Figure().subplots()
+        >>> frame_axes(ax, np.array([[0.0, 0.0], [1.0, 1.0]]))
+        >>> ax.get_aspect()
+        1.0
+    """
+    array = np.asarray(coords, dtype=float)
     ax.set_aspect("equal")
     ax.axis("off")
     if array.shape[0] == 0:
@@ -130,7 +148,7 @@ def render_points(
             c=(colors if colors is not None else _DEFAULT_POINT_COLOR),
         )
 
-    _frame(ax, array)
+    frame_axes(ax, array)
     fig.tight_layout()
     return fig
 
@@ -196,7 +214,7 @@ def render_path(
         else:
             ax.plot(array[:, 0], array[:, 1], color=color, linewidth=linewidth)
 
-    _frame(ax, array)
+    frame_axes(ax, array)
     fig.tight_layout()
     return fig
 

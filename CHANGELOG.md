@@ -8,6 +8,18 @@ semantic versioning.
 
 ### Added
 
+- Phase 2 walk + spiral: the first two presets and their layouts.
+  - `layout.walk_layout` / `heading_angles` — the 2-D turtle walk (step forward,
+    turn 90°), ported from the Wittgenstein piece's `compute_path`.
+  - `layout.spiral_layout` / `tangent_angles` — equal-arc-length placement along
+    an Archimedean spiral.
+  - `layout.rendered_widths` — headless rendered-width measurement (matplotlib
+    `TextPath`), the width-step that drives the walk.
+  - `text_walk` preset — sentences as a space-filling walk, with `"path"` and
+    `"glyphs"` (calligraphy-on-path) modes; built-in length/position channels.
+  - `punctuation_spiral` preset — a text's marks on a spiral, accenting logical,
+    mathematical, and Greek signs in gold.
+  - `render.frame_axes` helper; `examples/` and docs for both presets.
 - Phase 1 spine: the four-step pipeline end to end.
   - `segment` — split text into characters, tokens, or sentences. Sentence
     splitting defaults to a self-contained, abbreviation-aware offline splitter

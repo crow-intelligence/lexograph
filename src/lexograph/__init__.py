@@ -17,19 +17,31 @@ from lexograph.encode import (
     continuous_colors,
     normalize_size,
 )
-from lexograph.layout import linear_layout
-from lexograph.render import render_path, render_points
+from lexograph.layout import (
+    linear_layout,
+    rendered_widths,
+    spiral_layout,
+    walk_layout,
+)
+from lexograph.presets import punctuation_spiral, text_walk
+from lexograph.render import frame_axes, render_path, render_points
 from lexograph.segment import segment
 
 __all__ = [
     "segment",
     "linear_layout",
+    "walk_layout",
+    "spiral_layout",
+    "rendered_widths",
     "normalize_size",
     "categorical_colors",
     "continuous_colors",
     "Channels",
     "render_points",
     "render_path",
+    "frame_axes",
+    "punctuation_spiral",
+    "text_walk",
     "load_demo_text",
     "__version__",
 ]
